@@ -8,46 +8,34 @@ use App\Task;
 class TaskController extends Controller
 {
     
-    public function index()
-    {
+    public function index(){
         $tasks = Task::all();
         return view('task.index')
             ->with('tasks',$tasks);
     }
-    public function create()
-    {
+    public function create(){
         return view('task.create');
     }
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $task = new Task;
         $task->name = $request->name ;
         $task->description =$request->description;
         $task->save();
         return redirect('task');
     }
-    public function show($id)
-    {
-        //
-    }
-    public function edit($id)
-    {
+    public function edit($id){
         $task = Task::find($id);
         return view('task.edit')
             ->with('task',$task);
     }
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $task = Task::find($id);
         $task->name = $request->name;
         $task->description = $request->description;
-        //$task->updated_at = now();
         $task->save();
         return redirect('task');
-        //dd($request->all());
     }
-    public function destroy($id)
-    {
+    public function destroy($id){
          $task = Task::find($id);
          $task->delete();
          return redirect('task');
